@@ -7,22 +7,22 @@
 obs: a linha de dados (amarela) precisa de resistor (~4kOhm) ligando ao Vcc.
 */
 
-//testado com arduino mega 2560
+//testado com stm
 //retirado de https://curtocircuito.com.br/blog/Categoria%20Arduino/como-utilizar-o-ds18b20
 
-#include "OneWire.h"
+#include "OneWireSTM.h"
 #include "DallasTemperature.h"
 
-OneWire tempCommWire(2);
+OneWire tempCommWire(PB12);
 
 DallasTemperature tempSensor(&tempCommWire);
 
 void setup() {
-  Serial.begin(9600);
+  Serial1.begin(9600);
   tempSensor.begin();  
 }
 
 void loop() {
     tempSensor.requestTemperatures();
-    Serial.println(tempSensor.getTempCByIndex(0));
+    Serial1.println(tempSensor.getTempCByIndex(0));
 }
