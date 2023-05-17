@@ -4,7 +4,7 @@
 */
 
 /*
-obs: a linha de dados (amarela) precisa de resistor (~4kOhm) ligando ao Vcc. Nosso circuito está montado errado (verificado dia 28/04)
+obs: a linha de dados (amarela) precisa de resistor (~4kOhm) ligando ao Vcc.
 */
 
 //testado com arduino mega 2560
