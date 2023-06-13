@@ -15,14 +15,14 @@ extern const int chipSelect;
 const int SDA = PB7;
 const int SCL = PB6;
 
-#define ITACUBE1
+// #define ITACUBE1
 //#define ITACUBE2
 //#define ITACUBE3
 
 #ifdef ITACUBE1
 #define CMD_ASK_TLM "<CMD1:09,00>"        // ItaCube 1
 #define TLM_HEADER "<PLD1;%05d;000;%s>\0"     // ItaCube 1
-#define DHT22_DEF               // Se definido, será ativado o sensor DHT22
+// #define DHT22_DEF               // Se definido, será ativado o sensor DHT22
 #endif
 
 #ifdef ITACUBE2
@@ -39,15 +39,16 @@ const int SCL = PB6;
 
 //------------------------ Defines para controle da compilação - diretivas do compilador
 #define WATCHDOG            // Se definido, será compilado o tratamento de watchdog timer
-#define MPU6050
+// #define MPU6050
 #define SDCARD            // Se definido, será ativado o armazenamento de dados no SDCARD
-#define BAROMETRO           // Se definido, será ativado o processamento do Barômetro
+// #define BAROMETRO           // Se definido, será ativado o processamento do Barômetro
 #define PROC_BUS_MSG      // Se definido, processa mensagens recebidas do BUS
 #define PROCESS_SEND_TLM     // Se definido, será compilado o processamento dos parâmetros e salvos no SDCARD localmente
 #define PROCESS_RD_TLM       // Se definido, será compilado o processamento dos parâmetros e enviados remotamente
 //#define DEBUG_FROM_BUS    // Se definido, será ativado mostrar na serial DEB as mensagens recebidas ao BUS
 //#define DEBUG_TO_BUS      // Se definido, será ativado mostrar na serial DEB as mensagens enviadas ao BUS
 
+#define TEMP_CONTROL
 
 #define MPU Serial1
 #define BUS Serial2
@@ -362,6 +363,11 @@ void loop()
 #ifdef WATCHDOG
   handler_wdt();  //Alimenta whatchdog timer
 #endif
+
+#ifdef TEMP_CONTROL
+
+#endif
+
 }
 
 //----------------------------------------------------------------------------
