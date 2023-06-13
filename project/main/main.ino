@@ -15,8 +15,8 @@ extern const int chipSelect;
 const int SDA = PB7;
 const int SCL = PB6;
 
-// #define ITACUBE1
-//#define ITACUBE2
+//#define ITACUBE1
+#define ITACUBE2
 //#define ITACUBE3
 
 #ifdef ITACUBE1
@@ -132,7 +132,7 @@ void Dht22Setup();
 void Dht22Read();
 void MpuRead();
 int SDcardSetup();
-int writeToSDcard();
+int writeToSDcard(char *currentDataString, int iCab);
 void rtcStart();
 void ComSetup(HardwareSerial, unsigned int);         // Para as seriais 1, 2, 3
 void ComSetup0(USBSerial com, unsigned int uiBaud);  // Para serial USB
@@ -140,7 +140,8 @@ void PayloadEvent(HardwareSerial com);
 void sendCMD(int cmd);
 void handler_wdt(void);
 void setupTimers(int, long);
-
+void settime(char *buf, int len);
+int readFromSDcard(char *currentDataString, File dataFile);
 
 void setup()
 {
