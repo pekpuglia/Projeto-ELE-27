@@ -13,16 +13,24 @@ obs: a linha de dados (amarela) precisa de resistor (~4kOhm) ligando ao Vcc.
 #include "OneWireSTM.h"
 #include "DallasTemperature.h"
 
-OneWire tempCommWire(PB12);
+OneWire payloadTempWire(PB8);
+OneWire externalTempWire(PB9);
 
-DallasTemperature tempSensor(&tempCommWire);
+
+DallasTemperature payloadTempSensor(&payloadTempWire);
+DallasTemperature externalTempSensor(&externalTempWire);
+
 
 void setup() {
   Serial1.begin(9600);
-  tempSensor.begin();  
+  payloadTempSensor.begin();  
+  externalTempSensor.begin();
 }
 
 void loop() {
-    tempSensor.requestTemperatures();
-    Serial1.println(tempSensor.getTempCByIndex(0));
+    payloadTempSensor.requestTemperatures();
+    externalTempSensor.requestTemperatures();
+    Serial1.print(payloadTempSensor.getTempCByIndex(0));
+    Serial1.print(" ");
+    Serial1.println(externalTempSensor.getTempCByIndex(0));
 }
