@@ -1,6 +1,8 @@
 #include "OneWireSTM.h"
 #include "DallasTemperature.h"
 
+unsigned long ulTimeTempControl;
+
 //dados p transmitir
 struct TempControlData
 {

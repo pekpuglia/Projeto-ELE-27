@@ -28,6 +28,8 @@ const int SCL = PB6;
 #ifdef ITACUBE2
 #define CMD_ASK_TLM "<CMD2:09,00>"        // ItaCube 2
 #define TLM_HEADER "<PLD2;%05d;000;%s>\0"     // ItaCube 2
+#define TEMP_CONTROL
+#include "TempControl.ino"
 #endif
 
 #ifdef ITACUBE3
@@ -47,8 +49,6 @@ const int SCL = PB6;
 #define PROCESS_RD_TLM       // Se definido, será compilado o processamento dos parâmetros e enviados remotamente
 //#define DEBUG_FROM_BUS    // Se definido, será ativado mostrar na serial DEB as mensagens recebidas ao BUS
 //#define DEBUG_TO_BUS      // Se definido, será ativado mostrar na serial DEB as mensagens enviadas ao BUS
-
-#define TEMP_CONTROL
 
 #define MPU Serial1
 #define BUS Serial2
@@ -213,6 +213,10 @@ void setup()
   iTimeToRetry = T_TLM_RETRY;
   bDatSDCardSend = FALSE;
   iRetryTlmCounter = 0; // Zera contador de tentativas de envio de telemtria
+
+  #ifdef TEMP_CONTROL
+  ulTimeTempControl = millis();
+  #endif
 } // void setup()
 
 void loop()
@@ -366,7 +370,16 @@ void loop()
 #endif
 
 #ifdef TEMP_CONTROL
+  if (millis() - ulTimeTempControl > internalTemperatureMeasurementRateMillis) {
+    float internalTemp = internalTemperature();
+    float externalTemp = externalTemperature();
 
+    isOn = controlLogic(internalTemp);
+
+    controlOutput();
+
+    //construir dados de transmissão especificados na TempControlData
+  }
 #endif
 
 }
